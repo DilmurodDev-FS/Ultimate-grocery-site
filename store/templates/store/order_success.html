@@ -1,0 +1,16 @@
+{% extends 'store/base.html' %}
+{% block title %}Buyurtma qabul qilindi | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="empty-state">
+      <h2>Buyurtma muvaffaqiyatli qabul qilindi ✅</h2>
+      <p>Buyurtma raqami: <strong>#{{ order.id }}</strong></p>
+      <p>Ism: {{ order.full_name }}</p>
+      <p>Telefon: {{ order.phone }}</p>
+      <p>Jami: {{ order.total_price }} so'm</p>
+      <a href="{% url 'dashboard' %}" class="btn btn-primary">Kabinetga o'tish</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

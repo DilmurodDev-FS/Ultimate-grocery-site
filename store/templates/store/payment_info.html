@@ -1,0 +1,20 @@
+{% extends 'store/base.html' %}
+{% block title %}Payment info | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="empty-state">
+      <h2>Click / Payme integratsiya karkasi tayyor</h2>
+      <p>Hozircha buyurtma saqlandi. Real to'lov ishlashi uchun merchant ID va callback logikasini qo'shish kerak.</p>
+      <p>Settings env lar:</p>
+      <ul class="about-list">
+        <li>CLICK_MERCHANT_ID</li>
+        <li>PAYME_MERCHANT_ID</li>
+        <li>TELEGRAM_BOT_TOKEN</li>
+        <li>TELEGRAM_CHAT_ID</li>
+      </ul>
+      <a href="{% url 'dashboard' %}" class="btn btn-primary">Kabinetga o'tish</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+{% block title %}Ro'yxatdan o'tish | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:760px;">
+    <div class="contact-form">
+      <div class="section-heading"><div><p class="section-kicker">Register</p><h2>Yangi akkaunt yarating</h2></div></div>
+      {% if form.errors %}<div class="alert">{{ form.errors }}</div>{% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Akkaunt yaratish</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

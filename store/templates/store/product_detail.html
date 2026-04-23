@@ -1,0 +1,28 @@
+{% extends 'store/base.html' %}
+{% block title %}{{ product.name }} | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container about-grid">
+    <div class="hero-card">
+      {% if product.image_url %}
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="detail-image">
+      {% else %}
+        <div class="product-visual big">{{ product.image_emoji }}</div>
+      {% endif %}
+    </div>
+    <div class="hero-text">
+      <span class="badge">{{ product.category.name }}</span>
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <div class="hero-stats">
+        <div><strong>{{ product.price }} so'm</strong><span>Amaldagi narx</span></div>
+        <div><strong>{{ product.stock }}</strong><span>Qoldiq</span></div>
+      </div>
+      <div class="hero-actions">
+        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Savatchaga qo'shish</a>
+        <a href="{% url 'cart' %}" class="btn btn-secondary">Savatchani ko'rish</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

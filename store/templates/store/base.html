@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FreshMart{% endblock %}</title>
+  <meta name="description" content="FreshMart - oziq-ovqat do'koni">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'store/css/styles.css' %}">
+</head>
+<body>
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <span>🚚 50 000 so'mdan yuqori buyurtmalarga bepul yetkazib berish</span>
+      <span>🕘 Har kuni 08:00 - 23:00</span>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="{% url 'home' %}" class="logo">Fresh<span>Mart</span></a>
+      <nav class="nav" id="nav">
+        <a href="{% url 'home' %}">Bosh sahifa</a>
+        <a href="{% url 'home' %}#products">Mahsulotlar</a>
+        <a href="{% url 'cart' %}">Savatcha</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}">Kabinet</a>
+          <a href="{% url 'profile' %}">Profil</a>
+          <a href="{% url 'logout' %}">Chiqish</a>
+        {% else %}
+          <a href="{% url 'login' %}">Kirish</a>
+          <a href="{% url 'register' %}">Ro'yxatdan o'tish</a>
+        {% endif %}
+      </nav>
+      <div class="header-actions">
+        <form class="search-box" method="get" action="{% url 'home' %}">
+          <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Mahsulot qidirish..." />
+        </form>
+        <a class="cart-btn" href="{% url 'cart' %}">🛒 <span>{{ cart_count }}</span></a>
+        <button class="menu-btn" id="menuBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="container alerts">
+    {% for message in messages %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="{% url 'home' %}" class="logo">Fresh<span>Mart</span></a>
+        <p>FreshMart - login, kabinet, Telegram xabari va payment karkasi bilan.</p>
+      </div>
+      <div>
+        <h4>Bo'limlar</h4>
+        <ul>
+          <li><a href="{% url 'home' %}">Bosh sahifa</a></li>
+          <li><a href="{% url 'cart' %}">Savatcha</a></li>
+          <li><a href="{% url 'dashboard' %}">Kabinet</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>+998 90 123 45 67</li>
+          <li>@freshmart_support</li>
+          <li>Toshkent</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'store/js/app.js' %}"></script>
+</body>
+</html>

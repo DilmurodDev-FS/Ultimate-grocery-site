@@ -1,0 +1,83 @@
+{% extends 'store/base.html' %}
+{% block title %}FreshMart | Oziq-ovqat do'koni{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="badge">Login • Dashboard • Telegram • Payment skeleton</span>
+      <h1>Har kunlik oziq-ovqat xaridingizni <span>oson va chiroyli</span> qiling</h1>
+      <p>Bu versiyada foydalanuvchi kabineti, ro'yxatdan o'tish, mahsulot rasmlari, Telegram xabari va Click/Payme uchun tayyor karkas bor.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">Xaridni boshlash</a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="btn btn-secondary">Kabinetga o'tish</a>
+        {% else %}
+          <a href="{% url 'register' %}" class="btn btn-secondary">Akkaunt yaratish</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div>
+          <p class="hero-card-subtitle">Top mahsulotlar</p>
+          <h3>Featured mahsulotlar</h3>
+        </div>
+        <span class="discount-pill">PRO</span>
+      </div>
+      <div class="hero-feature-list">
+        {% for item in featured_products %}
+        <div class="hero-feature-item">
+          <span class="emoji">{{ item.image_emoji }}</span>
+          <div><strong>{{ item.name }}</strong><small>{{ item.short_description }}</small></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section products" id="products">
+  <div class="container">
+    <div class="section-heading">
+      <div><p class="section-kicker">Mahsulotlar</p><h2>Demo mahsulotlar</h2></div>
+      <p class="section-description">Real mahsulot rasmlari URL orqali qo'shilgan.</p>
+    </div>
+
+    <div class="filter-row">
+      <a class="filter-btn {% if current_category == 'all' %}active{% endif %}" href="{% url 'home' %}?category=all{% if search_query %}&q={{ search_query }}{% endif %}">Barchasi</a>
+      <a class="filter-btn {% if current_category == 'fruit' %}active{% endif %}" href="{% url 'home' %}?category=fruit{% if search_query %}&q={{ search_query }}{% endif %}">Mevalar</a>
+      <a class="filter-btn {% if current_category == 'vegetable' %}active{% endif %}" href="{% url 'home' %}?category=vegetable{% if search_query %}&q={{ search_query }}{% endif %}">Sabzavotlar</a>
+      <a class="filter-btn {% if current_category == 'dairy' %}active{% endif %}" href="{% url 'home' %}?category=dairy{% if search_query %}&q={{ search_query }}{% endif %}">Sut</a>
+      <a class="filter-btn {% if current_category == 'drink' %}active{% endif %}" href="{% url 'home' %}?category=drink{% if search_query %}&q={{ search_query }}{% endif %}">Ichimliklar</a>
+      <a class="filter-btn {% if current_category == 'bakery' %}active{% endif %}" href="{% url 'home' %}?category=bakery{% if search_query %}&q={{ search_query }}{% endif %}">Non</a>
+    </div>
+
+    <div class="product-grid">
+      {% for product in products %}
+      <article class="product-card">
+        {% if product.image_url %}
+          <a href="{% url 'product_detail' product.slug %}" class="product-image-wrap"><img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image"></a>
+        {% else %}
+          <a href="{% url 'product_detail' product.slug %}" class="product-visual">{{ product.image_emoji }}</a>
+        {% endif %}
+        <div class="product-body">
+          <div class="product-meta">
+            <span class="product-category">{{ product.category.name }}</span>
+            <span class="product-rating">{% if product.old_price %}Chegirma{% else %}Yangi{% endif %}</span>
+          </div>
+          <h3><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></h3>
+          <p>{{ product.short_description }}</p>
+          <div class="product-bottom">
+            <div class="price">
+              <strong>{{ product.price }} so'm</strong>
+              {% if product.old_price %}<span>{{ product.old_price }} so'm</span>{% endif %}
+            </div>
+            <a class="add-btn" href="{% url 'add_to_cart' product.id %}">Qo'shish</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

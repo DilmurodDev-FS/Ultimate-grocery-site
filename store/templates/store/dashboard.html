@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+{% block title %}Kabinet | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <div><p class="section-kicker">Kabinet</p><h2>{{ user.username }} uchun shaxsiy sahifa</h2></div>
+      <a href="{% url 'profile' %}" class="btn btn-secondary">Profilni tahrirlash</a>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit-card"><h3>{{ user.orders.count }}</h3><p>Jami buyurtmalar</p></div>
+      <div class="benefit-card"><h3>{{ cart_count }}</h3><p>Savatchadagi mahsulotlar</p></div>
+      <div class="benefit-card"><h3>{% if user.first_name %}{{ user.first_name }}{% else %}Mijoz{% endif %}</h3><p>FreshMart foydalanuvchisi</p></div>
+    </div>
+
+    <div class="section-heading" style="margin-top:28px;">
+      <div><p class="section-kicker">Buyurtmalar tarixi</p><h2>So'nggi buyurtmalar</h2></div>
+    </div>
+
+    {% if orders %}
+      <div class="cart-page">
+        {% for order in orders %}
+          <div class="cart-row">
+            <div>
+              <h3>Buyurtma #{{ order.id }}</h3>
+              <p>{{ order.created_at }} • {{ order.payment_method }} • {{ order.payment_status }}</p>
+            </div>
+            <strong>{{ order.total_price }} so'm</strong>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h3>Buyurtmalar yo'q</h3>
+        <p>Hali buyurtma bermagansiz.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Xaridni boshlash</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

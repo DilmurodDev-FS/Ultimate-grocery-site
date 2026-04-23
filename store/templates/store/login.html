@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+{% block title %}Kirish | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:680px;">
+    <div class="contact-form">
+      <div class="section-heading"><div><p class="section-kicker">Kirish</p><h2>Akkauntga kiring</h2></div></div>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Kirish</button>
+      </form>
+      <p>Akkaunt yo'qmi? <a href="{% url 'register' %}">Ro'yxatdan o'ting</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

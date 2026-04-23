@@ -1,0 +1,35 @@
+{% extends 'store/base.html' %}
+{% block title %}Savatcha | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading"><div><p class="section-kicker">Savatcha</p><h2>Tanlangan mahsulotlar</h2></div></div>
+    {% if cart_items %}
+    <div class="cart-page">
+      {% for item in cart_items %}
+      <div class="cart-row">
+        <div class="cart-row-left">
+          <div class="cart-emoji">{{ item.emoji }}</div>
+          <div><h3>{{ item.name }}</h3><p>{{ item.qty }} x {{ item.price }} so'm</p></div>
+        </div>
+        <div class="cart-row-right">
+          <strong>{{ item.qty }} dona</strong>
+          <a href="{% url 'remove_from_cart' item.id %}" class="remove-link">Olib tashlash</a>
+        </div>
+      </div>
+      {% endfor %}
+      <div class="checkout-box">
+        <h3>Jami: {{ total }} so'm</h3>
+        <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <h3>Savatcha bo'sh</h3>
+      <p>Avval mahsulot qo'shing.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">Mahsulotlarni ko'rish</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: freshmart-ultimate
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    startCommand: "gunicorn freshmart.wsgi:application"

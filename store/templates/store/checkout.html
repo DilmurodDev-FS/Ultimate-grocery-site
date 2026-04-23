@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+{% block title %}Checkout | FreshMart{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container contact-grid">
+    <div>
+      <div class="section-heading"><div><p class="section-kicker">Checkout</p><h2>Buyurtmani rasmiylashtirish</h2></div></div>
+      <div class="contact-form">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Buyurtmani tasdiqlash</button>
+        </form>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Sizning buyurtmangiz</h3>
+      <div class="hero-feature-list">
+        {% for item in cart_items %}
+        <div class="hero-feature-item">
+          <span class="emoji">{{ item.emoji }}</span>
+          <div><strong>{{ item.name }}</strong><small>{{ item.qty }} x {{ item.price }} so'm</small></div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="checkout-box"><h3>Jami: {{ total }} so'm</h3></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
